@@ -1,7 +1,7 @@
 #ifndef INCLUDE_CONFIG_H
 #define INCLUDE_CONFIG_H
 
-#include <iostream>
+#include <string>
 #include <memory>
 
 class Config {

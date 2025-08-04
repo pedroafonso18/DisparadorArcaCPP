@@ -10,4 +10,8 @@ add_executable(DisparadorArca src/main.cpp
         include/Utils.h
         include/Api.h
         src/Api.cpp
-        third_party/json.h)
+        third_party/json.h
+        include/Database/Database.h
+        include/Database/Fetch.h
+        include/Database/Models.h
+        include/Database/Insert.h)

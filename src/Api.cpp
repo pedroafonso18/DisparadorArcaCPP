@@ -26,13 +26,10 @@ bool Api::SendMessageApi(Request *req) {
     headers = curl_slist_append(headers, "Content-Type: application/json");
     headers = curl_slist_append(headers, auth.c_str());
 
-    std::string respBody;
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, str_bod.c_str());
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &respBody);
 
     CURLcode res = curl_easy_perform(curl);
     long http_code = 0;

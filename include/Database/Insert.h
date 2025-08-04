@@ -1,0 +1,19 @@
+#ifndef INCLUDE_DATABASE_INSERT_H
+#define INCLUDE_DATABASE_INSERT_H
+
+#include "Database.h"
+#include "Models.h"
+
+class Insert {
+private:
+    std::unique_ptr<Database> ownedDb;
+    Database *db;
+public:
+    explicit Insert(Database& db) : db(&db) {}
+    explicit Insert(const std::string& Url) : ownedDb(std::make_unique<Database>(Url)), db(ownedDb.get()) {}
+    void InsertLog(Message* msg);
+    void InsertTrafegoLog(Trafego* trafego);
+    void UpdateProcessado(const std::string& telefone);
+};
+
+#endif //INCLUDE_DATABASE_INSERT_H
