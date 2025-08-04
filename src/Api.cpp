@@ -1,4 +1,4 @@
-#include "../include/Api.h"
+#include "../include/Api/Api.h"
 #include <curl/curl.h>
 #include "../third_party/json.h"
 #include <format>
@@ -43,4 +43,30 @@ bool Api::SendMessageApi(Request *req) {
     curl_easy_cleanup(curl);
 
     return (res == CURLE_OK && http_code >= 200 && http_code < 300);
+}
+
+const Instance *Api::ValidateConns(const std::string& ApiToken) {
+    const std::string url = "https://bk.atendimento-meuconsig.com.br/whatsapp?companyId=2&session=0";
+    CURL* curl = curl_easy_init();
+    if (!curl) {
+        std::clog << "ERROR: Failed to initialize CURL\n";
+        return nullptr;
+    }
+    struct curl_slist* headers = nullptr;
+    const std::string auth = std::format("Authorization: Bearer {}", ApiToken);
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+    headers = curl_slist_append(headers, auth.c_str());
+
+    curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "GET");
+
+    CURLcode res = curl_easy_perform(curl);
+    long http_code = 0;
+    if (res == CURLE_OK) {
+        curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+    } else {
+        std::clog << "ERROR: curl_easy_perform failed: " << curl_easy_strerror(res) << "\n";
+    }
+
 }
