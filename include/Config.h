@@ -14,9 +14,9 @@ private:
         std::string PasswordArca;
     } Env;
     std::unique_ptr<Env> env;
-    [[nodiscard]] const Env& GetEnv() const;
 public:
     Config();
+    [[nodiscard]] const Env& GetEnv() const;
 };
 
 

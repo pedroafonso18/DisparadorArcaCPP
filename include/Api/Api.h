@@ -13,7 +13,7 @@ private:
 public:
     Api() = delete;
     static bool SendMessageApi(Request* req);
-    static std::vector<Instance> GetConnections(const std::string& email, const std::string& password);
+    static std::vector<Instance_t> GetConnections(const std::string& email, const std::string& password);
 };
 
 #endif //INCLUDE_API_API_H

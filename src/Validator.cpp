@@ -1,5 +1,8 @@
 #include "../include/Validator.h"
 #include <chrono>
+#include "../include/Api/Api.h"
+#include "../include/Config.h"
+#include "../include/Database/Insert.h"
 
 bool Validator::ValidateTime() {
     const auto now = std::chrono::system_clock::now();
@@ -25,5 +28,26 @@ bool Validator::ValidateTime() {
         return (now >= start_time) && (now <= end_time);
     } else {
         return (now >= start_time) || (now <= end_time);
+    }
+}
+
+void Validator::ValidateConns() {
+    const Config cfg;
+    const auto& env = cfg.GetEnv();
+
+    const auto conns = Api::GetConnections(env.LoginArca, env.PasswordArca);
+
+    if (conns.empty()) {
+        std::clog << "ERROR: No instances came from the api, skipping.\n";
+        return;
+    }
+
+    const auto insert = Insert(env.DbUrlV3);
+
+
+    for (const auto& conn : conns) {
+        if (conn.Status == false) {
+            insert.SetBanned(conn.InstanceNumber);
+        }
     }
 }

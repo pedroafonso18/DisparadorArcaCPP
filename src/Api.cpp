@@ -98,7 +98,7 @@ std::string Api::Login(const std::string &email, const std::string &password) {
     }
 }
 
-std::vector<Instance> Api::GetConnections(const std::string &email, const std::string &password) {
+std::vector<Instance_t> Api::GetConnections(const std::string &email, const std::string &password) {
     const std::string url = "https://bk.atendimento-meuconsig.com.br/whatsapp?companyId=2&session=0";
     const std::string token = Login(email, password);
     std::string respBody;
@@ -129,7 +129,7 @@ std::vector<Instance> Api::GetConnections(const std::string &email, const std::s
         return {};
     }
 
-    std::vector<Instance> instances;
+    std::vector<Instance_t> instances;
 
     try {
         auto json_resp = nlohmann::json::parse(respBody);
@@ -139,7 +139,7 @@ std::vector<Instance> Api::GetConnections(const std::string &email, const std::s
         }
 
         for (const auto& item : json_resp) {
-            Instance inst;
+            Instance_t inst;
             inst.Id = item.value("id", 0);
             inst.InstanceName = item.value("name", "");
             inst.InstanceNumber = item.value("number", "");

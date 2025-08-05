@@ -14,6 +14,6 @@ typedef struct {
     std::string InstanceNumber;
     bool Status;
     int Id;
-} Instance;
+} Instance_t;
 
 #endif //INCLUDE_API_MODELS_H

@@ -72,7 +72,26 @@ void Insert::UpdateTabela(const std::string &telefone) const {
     try {
         pqxx::result res = transaction.exec(pqxx::zview("UPDATE parametros_disparos SET sent_today = sent_today + 1, last_message_time = NOW() WHERE connection_number = $1 "), pqxx::params(telefone));
         if (!res.affected_rows() == 0) {
-            std::clog << "ERROR: error when updating Processado.\n";
+            std::clog << "ERROR: error when updating Table.\n";
+        }
+    }catch (pqxx::sql_error& e) {
+        transaction.abort();
+        std::clog << "Database error: " << std::string(e.what()) << '\n';
+    }
+    transaction.commit();
+}
+
+void Insert::SetBanned(const std::string &telefone) const {
+    auto c = db->getConnection();
+    if (!c->is_open()) {
+        std::clog << "ERROR: db connection is not open.\n";
+        return;
+    }
+    pqxx::work transaction(*c);
+    try {
+        pqxx::result res = transaction.exec(pqxx::zview("UPDATE parametros_disparos SET is_banned = true, is_active = false WHERE connection_number = $1 "), pqxx::params(telefone));
+        if (!res.affected_rows() == 0) {
+            std::clog << "ERROR: error when updating ban.\n";
         }
     }catch (pqxx::sql_error& e) {
         transaction.abort();

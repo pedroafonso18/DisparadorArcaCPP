@@ -15,6 +15,7 @@ public:
     void InsertTrafegoLog(Trafego* trafego) const;
     void UpdateProcessado(const std::string& telefone) const;
     void UpdateTabela(const std::string& telefone) const;
+    void SetBanned(const std::string& telefone) const;
 };
 
 #endif //INCLUDE_DATABASE_INSERT_H
