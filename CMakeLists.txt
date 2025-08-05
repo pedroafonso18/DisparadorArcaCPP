@@ -18,4 +18,5 @@ add_executable(DisparadorArca src/main.cpp
         include/Validator.h
         include/Api/Models.h
         src/Database/Insert.cpp
-        src/Database/Fetch.cpp)
+        src/Database/Fetch.cpp
+        src/Validator.cpp)

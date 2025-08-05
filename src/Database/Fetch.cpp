@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-const std::vector<EntradaClt> Fetch::FetchBolsa() {
+std::vector<EntradaClt> Fetch::FetchBolsa() {
     std::vector<EntradaClt> vec;
     auto c = db->getConnection();
     if (!c->is_open()) {
@@ -98,7 +98,7 @@ std::string Fetch::FetchTemplates() const {
 }
 
 
-const std::vector<Instance> Fetch::FetchInstances() {
+const std::vector<Instance> Fetch::FetchInstances() const {
 	auto c = db->getConnection();
 	std::vector<Instance> vec;
 	if (!c->is_open()) {

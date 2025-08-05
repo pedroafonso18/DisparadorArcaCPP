@@ -15,7 +15,7 @@ public:
     std::vector<EntradaClt> FetchBolsa();
 
     std::string FetchTemplates() const;
-    const std::vector<Instance> FetchInstances();
+    const std::vector<Instance> FetchInstances() const;
 };
 
 #endif //INCLUDE_DATABASE_FETCH_H
