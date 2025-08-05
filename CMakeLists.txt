@@ -5,13 +5,18 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(MSYS_ROOT "C:/msys64/mingw64")
 
+set(OPENSSL_ROOT_DIR "${MSYS_ROOT}")
+set(OPENSSL_INCLUDE_DIR "${OPENSSL_ROOT_DIR}/include")
+set(ZLIB_ROOT "${MSYS_ROOT}")
+set(ZLIB_INCLUDE_DIR "${ZLIB_ROOT}/include")
+set(ZLIB_LIBRARY "${ZLIB_ROOT}/lib/libz.dll.a")
+
 find_package(CURL REQUIRED)
 find_package(OpenSSL REQUIRED)
+find_package(ZLIB REQUIRED)
 
-set(CURL_ROOT_DIR "${MSYS_ROOT}")
-set(OPENSSL_ROOT_DIR "${MSYS_ROOT} ${MSYS_ROOT}/include")
 
-include_directories(${CURL_INCLUDE_DIRS} ${OPENSSL_INCLUDE_DIR})
+include_directories(${CURL_INCLUDE_DIRS} ${OPENSSL_INCLUDE_DIR} ${ZLIB_INCLUDE_DIR})
 
 add_executable(DisparadorArca src/main.cpp
         include/Config.h
@@ -31,5 +36,4 @@ add_executable(DisparadorArca src/main.cpp
         src/Database/Fetch.cpp
         src/Validator.cpp)
 
-target_link_libraries(DisparadorArca PRIVATE pqxx pq ${OPENSSL_LIBRARIES} ${CURL_LIBRARIES}
-)
+target_link_libraries(DisparadorArca PRIVATE pqxx pq ${OPENSSL_LIBRARIES} ${CURL_LIBRARIES} ${ZLIB_LIBRARY})

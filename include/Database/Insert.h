@@ -3,6 +3,7 @@
 
 #include "Database.h"
 #include "Models.h"
+#include "../Api/Models.h"
 
 class Insert {
 private:
@@ -16,6 +17,7 @@ public:
     void UpdateProcessado(const std::string& telefone) const;
     void UpdateTabela(const std::string& telefone) const;
     void SetBanned(const std::string& telefone) const;
+    void InsertInstance(const Instance_t& instance) const;
 };
 
 #endif //INCLUDE_DATABASE_INSERT_H
