@@ -12,10 +12,10 @@ private:
 public:
     explicit Fetch(Database& db) : db(&db) {}
     explicit Fetch(const std::string& Url) : ownedDb(std::make_unique<Database>(Url)), db(ownedDb.get()) {}
-    const EntradaClt* FetchBolsa();
-    const std::string FetchTemplates();
-    const Instance* FetchInstances();
-    const Instance* GetNextInstance();
+    std::vector<EntradaClt> FetchBolsa();
+
+    std::string FetchTemplates() const;
+    const std::vector<Instance> FetchInstances();
 };
 
 #endif //INCLUDE_DATABASE_FETCH_H

@@ -18,9 +18,9 @@ typedef struct {
 typedef struct {
     std::string InstanceName;
     std::string InstanceNumber;
-    bool Status;
     std::string Token;
-    int Index;
+    int DailyLimit;
+    int SentToday;
 } Instance;
 
 typedef struct {
