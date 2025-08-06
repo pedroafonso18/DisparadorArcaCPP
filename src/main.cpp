@@ -78,13 +78,13 @@
             } else {
                 std::clog << "[main] Message failed to send" << std::endl;
             }
-            std::clog << "[main] Sleeping ~10 seconds (+/-10%) before next lead" << std::endl;
+            std::clog << "[main] Sleeping ~5 minutes (+/-10%) before next lead" << std::endl;
             {
                 static std::random_device rd;
                 static std::mt19937 gen(rd());
                 std::uniform_real_distribution<> dis(0.9, 1.1);
                 double factor = dis(gen);
-                int sleep_ms = static_cast<int>(10000 * factor);
+                int sleep_ms = static_cast<int>(5 * 60 * 1000 * factor);
                 std::this_thread::sleep_for(std::chrono::milliseconds(sleep_ms));
             }
         }

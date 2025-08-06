@@ -12,11 +12,15 @@ std::vector<EntradaClt> Fetch::FetchBolsa() {
     }
 
     pqxx::work transaction(*c);
-    const std::string query = R"(SELECT DISTINCT ON (telefone)
+    const std::string query = R"(		SELECT DISTINCT ON (telefone)
 		carteira_assinada, tempo_emprego, valor_desejado, nome, cpf, telefone, tag, produto, processado
 		FROM entrada_clt
 		WHERE processado = FALSE AND produto = 'bolsa-familia'
+		AND consulta_cref = true
 		AND tag != 'base'
+		AND status_cref->'costumer_data'->>'erro' = 'false'
+		AND status_cref->'costumer_data'->'objeto'->>'permiteCaptura' = 'true'
+		AND status_cref->'costumer_data'->'objeto'->>'mensagem' = 'Prosseguir com simulação'
 		ORDER BY telefone, random()
 		LIMIT 45;)";
     try {
@@ -39,10 +43,11 @@ std::vector<EntradaClt> Fetch::FetchBolsa() {
             }
             return vec;
         }
-        auto res2 = transaction.exec(pqxx::zview(R"(SELECT DISTINCT ON (telefone)
+        auto res2 = transaction.exec(pqxx::zview(R"(			SELECT DISTINCT ON (telefone)
 			carteira_assinada, tempo_emprego, valor_desejado, nome, cpf, telefone, tag, produto, processado
 			FROM entrada_clt
 			WHERE processado = FALSE AND produto = 'bolsa-familia'
+			AND consulta_cref = true
 			AND tag = 'base'
 			AND status_cref->'costumer_data'->>'erro' = 'false'
 			AND status_cref->'costumer_data'->'objeto'->>'permiteCaptura' = 'true'
