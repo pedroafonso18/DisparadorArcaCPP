@@ -14,8 +14,8 @@ public:
     explicit Fetch(const std::string& Url) : ownedDb(std::make_unique<Database>(Url)), db(ownedDb.get()) {}
     std::vector<EntradaClt> FetchBolsa();
 
-    std::string FetchTemplates() const;
-    const std::vector<Instance> FetchInstances() const;
+    [[nodiscard]] std::string FetchTemplates() const;
+    [[nodiscard]] const std::vector<Instance> FetchInstances() const;
 };
 
 #endif //INCLUDE_DATABASE_FETCH_H

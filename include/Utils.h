@@ -6,7 +6,7 @@
 class Utils {
 public:
     Utils() = delete;
-    static std::string FormatPhone(const std::string& phone) {
+    [[nodiscard]] static std::string FormatPhone(const std::string& phone) {
         if (phone.length() >= 2 && phone.starts_with("55")) {
             return phone;
         }

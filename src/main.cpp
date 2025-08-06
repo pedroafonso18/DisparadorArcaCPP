@@ -48,6 +48,7 @@
             auto phone = Utils::FormatPhone(it->Telefone);
             const auto& instance = instances[instanceIndex];
             std::clog << "[main] Using instance: " << instance.InstanceNumber << std::endl;
+            v3_db_ins.UpdateTabela(instance.InstanceNumber);
             instanceIndex = (instanceIndex + 1) % totalInstances;
             Request req = {
                 .ApiKey = instance.Token,
@@ -68,7 +69,7 @@
             auto tra = Insert(env.DbUrlTrafego);
             if (status) {
                 std::clog << "[main] Message sent successfully, inserting trafego log" << std::endl;
-                Trafego tr = Trafego {
+                auto tr = Trafego {
                     .Name = it->Nome,
                     .Phone = phone,
                     .Tag = it->Tag

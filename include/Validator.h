@@ -6,7 +6,6 @@ public:
     Validator() = delete;
     static bool ValidateTime();
     static void ValidateConns();
-    static void SendMessage();
 };
 
 #endif //INCLUDE_VALIDATOR_H
