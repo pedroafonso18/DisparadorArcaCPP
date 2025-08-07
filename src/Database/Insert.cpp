@@ -127,8 +127,8 @@ void Insert::InsertInstance(const Instance_t& instance) const {
         if (res.empty()) {
             std::clog << "[Insert::InsertInstance] Instance not found, inserting: " << instance.InstanceNumber << std::endl;
             transaction.exec_params(
-                "INSERT INTO parametros_disparos (connection_name, connection_number, is_active, is_banned, daily_limit, sent_today) VALUES ($1, $2, true, false, 1000, 0)",
-                instance.InstanceName, instance.InstanceNumber
+                "INSERT INTO parametros_disparos (connection_name, connection_number, is_active, is_banned, daily_limit, sent_today, token) VALUES ($1, $2, false, false, 1000, 0, $3)",
+                instance.InstanceName, instance.InstanceNumber, instance.Token
             );
             transaction.commit();
             std::clog << "[Insert::InsertInstance] Instance inserted: " << instance.InstanceNumber << std::endl;

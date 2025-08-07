@@ -137,6 +137,7 @@ std::vector<Instance_t> Api::GetConnections(const std::string &email, const std:
             inst.InstanceName = item.value("name", "");
             inst.InstanceNumber = item.value("number", "");
             inst.Status = item.value("status", "") == "CONNECTED";
+            inst.Token = item.value("token", "");
             std::clog << "[Api::GetConnections] Instance: " << inst.InstanceName << ", Number: " << inst.InstanceNumber << ", Status: " << inst.Status << std::endl;
             instances.push_back(inst);
         }
